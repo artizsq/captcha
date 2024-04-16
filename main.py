@@ -5,7 +5,7 @@ import random
 import os
 
 
-def generate_image(text: str | None = None, path: str | None = None, format: str = 'png') -> ImageCaptcha:
+def generate_image(text: str = None, path: str = None, format: str = 'png', image = ImageCaptcha()) -> ImageCaptcha:
     """
     Генерация изображения с капчей (4 символа).
 
@@ -13,11 +13,10 @@ def generate_image(text: str | None = None, path: str | None = None, format: str
     :param path: путь сохранения изображения
     :param format: формат изображения
     """
-    image = ImageCaptcha()
 
-    if not text:
+    if text is None:
         text = ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
-    if not path:
+    if path is None:
         path = f'{text}.{format}'
 
     return image.write(text, path, format)
@@ -38,4 +37,5 @@ def check_captcha(captcha: str, text: str) -> bool:
     Проверка капчи.
     """
     return captcha == text
+
 
